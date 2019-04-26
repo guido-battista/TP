@@ -1,0 +1,20 @@
+npx babel --watch statics/reacts --out-dir statics/babel --presets react-app/prod
+
+"Mlab"
+=============================
+To connect using the mongo shell:
+mongo ds147746.mlab.com:47746/tacs -u <dbuser> -p <dbpassword>
+To connect using a driver via the standard MongoDB URI (what's this?):
+mongodb://<dbuser>:<dbpassword>@ds147746.mlab.com:47746/tacs
+
+
+{
+    "_id": {
+        "$oid": "5cc35668e7179a274e09c92b"
+    },
+    "name": "Prueba",
+    "password": "1234"
+}
+
+GuidoBattista
+mlab0001
