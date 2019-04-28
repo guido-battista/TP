@@ -53,5 +53,5 @@ app.get('/', (req, res) => {
 //Metodos que recibe la Api
 app.get('/signin',LoginController.GetSignin);
 
-app.post('/signin',LoginController.PostSignin);
+app.post('/crearUsuario',LoginController.CrearUsuario);
 

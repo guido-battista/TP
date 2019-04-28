@@ -4,11 +4,11 @@ exports.GetSignin = function (req, res) {
     res.send(usuario);
 };
 
-exports.PostSignin = function (req,res) {
+exports.CrearUsuario = function (req,res) {
     console.log("Recibí el pedido Post");
-    var title = req.body.title;
-    //console.log(req);
     console.log("Body keys:" + Object.keys(req.body));
-    console.log("Title: "+ title);
-    res.status(200).send();
+    console.log("usuario: "+ req.body.usuario);
+    console.log("usuario: "+ req.body.password);
+    var retorno = {CodigoRetorno: "00"};
+    res.status(200).send(retorno);
 };
