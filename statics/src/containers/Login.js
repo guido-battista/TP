@@ -1,36 +1,90 @@
 import React, { Component } from "react";
+import { loguearUsuario } from '../actions'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-class Login extends Component {
-    state = { redirectToReferrer: false };
-  
-    login = () => {
-      //fakeAuth.authenticate(() => {
-      // this.setState({ redirectToReferrer: true });
-      //});
+import {
+  Redirect
+} from "react-router-dom";
+
+class Signup extends Component {
+  constructor (props){
+    super(props);
+    this.state = {
+      usr: '',
+      pwd: '',
+      loginOk: false,
+      loginError: false
     };
-  
-    render() {
-      let { from } = this.props.location.state || { from: { pathname: "/" } };
-      let { redirectToReferrer } = this.state;
-  
-      if (redirectToReferrer) return <Redirect to={from} />;
-  
-      return (
-        <div>
-          <form class="center">
-                <h2>Sign In</h2>
-                <label for="usr">Usuario</label>
-                <input type="text" class="form-control" id="usr"/>
-                <br/>
-                <label for="pwd">Password</label>
-                <input type="password" class="form-control" id="pwd"/>
-                <br/>
-                <button onClick={this.login} class="btn btn-primary">Login</button>
-                <br/>
-            </form>
-        </div>
-      );
-    }
+    this.login = this.login.bind(this);
+    this.handleUsuarioChange = this.handleUsuarioChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+
   }
-  
-  export default Login;
+
+  static propTypes = {
+    usuario:  PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired
+  }
+
+  handleUsuarioChange(event) {
+    this.setState({usr: event.target.value});
+  }
+
+  handlePasswordChange(event) {
+    this.setState({pwd: event.target.value});
+  }
+
+  render() {
+    if (this.state.loginOk) 
+    {
+      return <Redirect to="/" />;
+    }
+
+    if(this.state.loginError)
+    {
+      return (
+        <div class="center">
+          <label for="usr">Error en el Login</label>
+        </div>
+      )
+    }
+    return (
+      <div class="center">
+        <h2>Sign Up</h2>
+        <label for="usr">Usuario</label>
+        <input type="text" class="form-control" id="usr" value={this.state.usr} onChange={this.handleUsuarioChange} />
+        <br />
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control" id="pwd" value={this.state.pwd} onChange={this.handlePasswordChange} />
+        <br />
+        <button onClick={this.login} class="btn btn-primary">Login</button>
+        <br />
+      </div>
+    );
+  }
+
+  login = () => {
+    console.log("Alta de Usuario");
+    var params = "?nombre=" + this.state.usr + "&pass=" + this.state.pwd;
+    fetch('http://localhost:3000/login/'+params)
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => 
+      { 
+        if (response.resultado == "OK")
+        {
+          this.props.dispatch(loguearUsuario());
+          this.setState({loginOk: true});
+        }
+        else
+        {
+          this.setState({loginError: true});
+        }
+      }
+    );
+  };
+}
+
+export default connect()(Signup)

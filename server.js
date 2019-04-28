@@ -25,19 +25,22 @@ var dirVistas = Path.join(__dirname, './views');
 //Conexión con la BD Mongo
 var conString = 'mongodb://tacs:tacs01@ds147746.mlab.com:47746/tacs';
 
-//Conexión a la BD
-mongoose.connect(conString, function(err, res) {
-  if(err) {
-    console.log('ERROR: connecting to Database. ' + err);
-  }
-  //Se pone el puerto en escucha
-  app.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
-  console.log(`server is listening on ${port}`)
-  });
+
+mongoose.connect(conString, {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Conexión realizada a BD");
+    //Se pone el puerto en escucha
+    app.listen(port, (err) => {
+      if (err) {
+        return console.log('something bad happened', err)
+      }
+      console.log(`server is listening on ${port}`)
+      });
 });
+
+
 
 app.use((err, request, response, next) => {
     // log the error, for now just console.log
@@ -51,7 +54,7 @@ app.get('/', (req, res) => {
 });
 
 //Metodos que recibe la Api
-app.get('/signin',LoginController.GetSignin);
+app.get('/login',LoginController.Login);
 
 app.post('/crearUsuario',LoginController.CrearUsuario);
 

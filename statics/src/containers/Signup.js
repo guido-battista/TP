@@ -82,14 +82,4 @@ class Signup extends Component {
   };
 }
 
-//const mapStateToProps = state => {
-//  const usuario = "";
-//  const password = "";
-//
-//  return {
-//  }
-//}
-
-
-//export default connect(mapStateToProps)(Signup)
 export default connect()(Signup)
