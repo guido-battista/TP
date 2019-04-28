@@ -7,12 +7,19 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
-import Login from './Login';
-import Signup from './Signup';
+import Login from '../containers/Login';
+import Signup from '../containers/Signup';
 import Principal from './Principal';
 
-function App() {
-  return (
+//function App() {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log("App");
+  }
+
+  render() {
+    return(
     <Router>
       <div>
         <Route path="/" exact component={Principal} />  
@@ -21,9 +28,11 @@ function App() {
         <Route path="/LoginOk" component={LoginOk} />
       </div>
     </Router>
-  );
-}
+    )
+  };
+};
 
+//Esto es provisorio
 class LoginOk extends Component {
   render() {
     console.log("Se renderiza el Login OK");
@@ -34,9 +43,7 @@ class LoginOk extends Component {
     );
   }
 }
+//----------------------
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
 
+export default App;

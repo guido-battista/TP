@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { loguearUsuario } from '../actions'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import {
   Redirect
 } from "react-router-dom";
 
 class Signup extends Component {
-  constructor(props) {
+  constructor (props){
     super(props);
     this.state = {
       usr: '',
@@ -16,6 +19,12 @@ class Signup extends Component {
     this.handleUsuarioChange = this.handleUsuarioChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
+  }
+
+  static propTypes = {
+    usuario:  PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired
   }
 
   handleUsuarioChange(event) {
@@ -30,7 +39,8 @@ class Signup extends Component {
     if (this.state.altaOk) 
     {
       console.log("Antes de hacer el Redirect");
-      return <Redirect to="/LoginOk" />;
+      //return <Redirect to="/LoginOk" />;
+      return <Redirect to="/" />;
     }
     return (
       <div class="center">
@@ -64,10 +74,22 @@ class Signup extends Component {
     .then(response => 
       {
         console.log('Success:', response);
+        this.props.dispatch(loguearUsuario());
+        console.log("Antes del setState");
         this.setState({altaOk: true});
       }
       );
   };
 }
 
-export default Signup;
+//const mapStateToProps = state => {
+//  const usuario = "";
+//  const password = "";
+//
+//  return {
+//  }
+//}
+
+
+//export default connect(mapStateToProps)(Signup)
+export default connect()(Signup)

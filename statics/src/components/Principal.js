@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import EstadoUsuario from './EstadoUsuario';
 
 import {Link} from "react-router-dom";
 
@@ -9,10 +10,13 @@ class Principal extends Component {
         <div>
           <ul>
             <li>
-            <Link to="/Login">Sign In</Link>
+              <EstadoUsuario />
             </li>
             <li>
-            <Link to="/SignUp">Sign Up</Link>
+              <Link to="/Login">Sign In</Link>
+            </li>
+            <li>
+              <Link to="/SignUp">Sign Up</Link>
             </li>
         </ul>
         </div>
