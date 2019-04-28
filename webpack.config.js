@@ -4,7 +4,7 @@ module.exports = {
     },
     context: __dirname,
     entry: {
-      app: ['./statics/reacts/Login.js']
+      app: ['./statics/reacts/App.js']
     },
     output: {
       path: __dirname + '/statics/build',

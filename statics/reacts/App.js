@@ -1,13 +1,8 @@
-class App extends React.Component {
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './example';
 
-    render() {
-        return(
-            <div>
-                <Calculator name="Guido"/>
-            </div>
-            );
-    }
-}
-
-
-ReactDOM.render(<App />,document.getElementById('root'));
+ReactDOM.render(
+<App />,
+document.getElementById('root')
+);

@@ -47,7 +47,7 @@ app.use((err, request, response, next) => {
 
 //Se sirve el primer HTML al browser
 app.get('/', (req, res) => {
-    res.sendFile(dirVistas + '/login.html');
+    res.sendFile(dirVistas + '/index.html');
 });
 
 //Metodos que recibe la Api
