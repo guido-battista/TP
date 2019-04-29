@@ -2,7 +2,11 @@ const usuarioLogueado = (state = false, action) => {
     switch (action.type) {
       case 'LOGIN_USUARIO':
       {
-          return { usuarioLogueado: true};
+          return true;
+      }
+      case 'LOGOUT_USUARIO':
+      {
+          return false;
       }
       default:
         return state

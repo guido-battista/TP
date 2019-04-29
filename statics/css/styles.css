@@ -4,3 +4,9 @@
     left:50%;
     transform: translate(-50%,-60%);
 }
+
+.borderlessButton{
+    padding: 0;
+    border: none;
+    background: none;
+}

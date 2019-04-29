@@ -66,14 +66,11 @@ class Signup extends Component {
   }
 
   login = () => {
-    console.log("Alta de Usuario");
     var params = "?nombre=" + this.state.usr + "&pass=" + this.state.pwd;
     fetch('http://localhost:3000/login/'+params)
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
     .then(response => 
       { 
-        if (response.resultado == "OK")
+        if (response.status === 200)
         {
           this.props.dispatch(loguearUsuario());
           this.setState({loginOk: true});
@@ -83,7 +80,8 @@ class Signup extends Component {
           this.setState({loginError: true});
         }
       }
-    );
+    )
+    .catch(error => console.error('Error:', error));
   };
 }
 

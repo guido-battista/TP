@@ -1,0 +1,7 @@
+{
+
+    "DBConString": "mongodb://tacs:tacs01@ds147746.mlab.com:47746/tacs",
+
+    "secret": "TACS"
+
+}

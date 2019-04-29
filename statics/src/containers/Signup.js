@@ -58,7 +58,6 @@ class Signup extends Component {
   }
 
   altaUsuario = () => {
-    console.log("Alta de Usuario");
     fetch('http://localhost:3000/crearUsuario', {
       method: "POST",
       body: JSON.stringify({
@@ -73,9 +72,7 @@ class Signup extends Component {
     .catch(error => console.error('Error:', error))
     .then(response => 
       {
-        console.log('Success:', response);
         this.props.dispatch(loguearUsuario());
-        console.log("Antes del setState");
         this.setState({altaOk: true});
       }
       );

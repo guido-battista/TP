@@ -2,8 +2,15 @@ const express = require('express');
 const app = express();
 const port = 3000;
 var bodyParser = require('body-parser')
-const queryString = require('querystring');
+//const queryString = require('querystring');
 const mongoose = require('mongoose');
+//const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+
+const config = require('./api/config/config.json');
+
+
+const withAuth = require('./api/middleware.js');
 
 const Path = require('path');
 
@@ -23,8 +30,8 @@ app.use(bodyParser.json());
 var dirVistas = Path.join(__dirname, './views');
 
 //Conexión con la BD Mongo
-var conString = 'mongodb://tacs:tacs01@ds147746.mlab.com:47746/tacs';
-
+//var conString = 'mongodb://tacs:tacs01@ds147746.mlab.com:47746/tacs';
+var conString = config.DBConString;
 
 mongoose.connect(conString, {useNewUrlParser: true});
 var db = mongoose.connection;
@@ -40,13 +47,7 @@ db.once('open', function() {
       });
 });
 
-
-
-app.use((err, request, response, next) => {
-    // log the error, for now just console.log
-    console.log(err)
-    response.status(500).send('Something broke!')
-  });
+app.use(cookieParser());
 
 //Se sirve el primer HTML al browser
 app.get('/', (req, res) => {
@@ -57,4 +58,8 @@ app.get('/', (req, res) => {
 app.get('/login',LoginController.Login);
 
 app.post('/crearUsuario',LoginController.CrearUsuario);
+
+app.get('/logout',withAuth, LoginController.Logout);
+
+app.get('/pruebaLog',withAuth, LoginController.PruebaLog);
 

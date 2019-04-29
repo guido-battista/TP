@@ -1,4 +1,8 @@
 const Usuario = require('../models/Usuario.js');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config.json');
+
+const secret = config.secret;
 
 exports.GetSignin = function (req, res) {
     var usuario = {usuario: "Guido", Password: "1234"}
@@ -10,30 +14,55 @@ exports.Login = function (req, res) {
     var pass = req.query.pass;
     Usuario.findOne({ 'nombre': nombre }).exec()
     .then(usuario => {
-        if (usuario)
-            var resultado = {resultado: "OK"}
+        if (usuario.password == pass )
+        {
+            // Issue token
+            const payload = { nombre };
+            const token = jwt.sign(payload, secret, {
+                expiresIn: '1h'
+            });
+            res.cookie('token', token, { httpOnly: true })
+                .sendStatus(200);
+        }
         else
-            var resultado = {resultado: "Error"}
-        res.status(200).send(resultado);
+        {
+            res.status(401);
+        }
     })
     .catch((err) => res.status(404).send(err));
 };
 
+exports.Logout = function (req, res) {
+    res.clearCookie('token');
+    res.status(200).send();
+};
+
 exports.CrearUsuario = function (req,res) {
-    var retorno = {CodigoRetorno: "00"};
+    var retornoOk = {CodigoRetorno: "00"};
 
     var usuario = new Usuario(
-        { 
-            nombre: req.body.usuario,
-            password: req.body.password
-        });
-        /*
-    usuario.save(function (err, usuario) {
-        if (err) res.status(404).send(err);
-        res.status(200).send();
-        });
-        */
+    { 
+        nombre: req.body.usuario,
+        password: req.body.password
+    });
     usuario.save()
-    .then((usuario) => res.status(200).send())
-    .catch((err) => res.status(404).send(err));
+    .then((usuario) =>
+    { 
+        // Issue token
+        const nombre = usuario.nombre;
+        const payload = { nombre };
+        const token = jwt.sign(payload, secret, {
+            expiresIn: '1h'
+        });
+        res.cookie('token', token, { httpOnly: true })
+                .status(200).send(retornoOk);        
+    })
+    .catch((err) => {
+        res.status(404).send(err)
+    });
+};
+
+
+exports.PruebaLog = function (req, res) {
+    res.status(200).send();
 };

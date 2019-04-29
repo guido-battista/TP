@@ -13,7 +13,6 @@ class EstadoUsuario extends Component {
   }
 
   render() {
-    console.log(this.props.usuarioLogueado);
     if (this.props.usuarioLogueado)
       return(
         <div>
@@ -30,8 +29,7 @@ class EstadoUsuario extends Component {
 };
 
 const mapStateToProps = state => {
-  console.log("Estado usuario State <"+Object.keys(state)+">")
-  const { usuarioLogueado } = state
+  const { usuarioLogueado } = state;
 
   return {
     usuarioLogueado
