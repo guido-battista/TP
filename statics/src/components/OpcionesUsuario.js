@@ -17,7 +17,7 @@ class OpcionesUsuario extends Component {
             <div>
                 <ul>
                     <li>
-                      <Link to="/ConsultarVenues">Consultar Venues</Link>
+                      <Link to="/Venues">Consultar Venues</Link>
                     </li>
                     <li>
                       <Logout />

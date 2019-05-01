@@ -7,10 +7,9 @@ const CLIENT_SECRET =   "SWUBA43NDRCJ22FY5OXUSUKISC0SUJJU3AYACUBEDSNDT1CP";
 exports.GetVenues = function (req, response) {
     var latitud = req.query.latitud;
     var longitud = req.query.longitud;
-    var desc     = req.query.desc;
-    console.log(latitud);
-    console.log(longitud);
-    console.log(desc);
+    var texto     = req.query.texto;
+
+    var ll = latitud.toString() + ',' + longitud.toString();
 
     //console.log(id);
     request({
@@ -19,8 +18,9 @@ exports.GetVenues = function (req, response) {
         qs: {
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
-          ll: '40.7243,-74.0018',
-          section: 'food',
+          //ll: '40.7243,-74.0018',
+          ll: ll,
+          query: texto.toString(),
           radius: '250',
           v: '20180323',
           limit: 10
@@ -32,7 +32,8 @@ exports.GetVenues = function (req, response) {
         } 
         //console.log( Object.keys(res.body));
         var respuesta = JSON.parse(body);
-        //console.log(respuesta.response.venues);
+        console.log("Respuesta OK");
+        console.log(respuesta.response.venues);
         response.status(200).send(respuesta.response.venues);
       });
 };
