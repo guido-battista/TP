@@ -1,32 +1,43 @@
 import React, { Component } from "react";
-import EstadoUsuario from './EstadoUsuario';
-import Logout from '../containers/Logout';
+import { connect } from 'react-redux'
+import OpcionesUsuario from './OpcionesUsuario';
+import OpcionesSinUsuario from './OpcionesSinUsuario';
+import PropTypes from 'prop-types';
 
-import {Link} from "react-router-dom";
 
 class Principal extends Component {
 
+    static propTypes = {
+      usuarioLogueado: PropTypes.bool.isRequired
+    }
+
     render() {
-      return (
-        <div>
-          <EstadoUsuario />
-          <ul>
-            <li>
-              <Link to="/Login">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/SignUp">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/PruebaLog">Prueba Login</Link>
-            </li>
-            <li>
-              <Logout />
-            </li>
-        </ul>
-        </div>
-      );
+
+      console.log("Entro a Principal");
+
+      if (this.props.usuarioLogueado)
+      {
+        return(
+        <OpcionesUsuario />
+        )
+      }
+      else
+      {
+        return(
+        <OpcionesSinUsuario />
+        )
+      }
     }
   }
   
-  export default Principal;
+  const mapStateToProps = state => {
+    const { usuarioLogueado } = state;
+  
+    return {
+      usuarioLogueado
+    }
+  }
+  
+  export default connect(
+      mapStateToProps
+    )(Principal);

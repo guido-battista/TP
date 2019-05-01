@@ -15,7 +15,8 @@ const withAuth = require('./api/middleware.js');
 const Path = require('path');
 
 //Agrego los controllers
-const LoginController = require('./api/controllers/LoginController.js')
+const LoginController = require('./api/controllers/LoginController.js');
+const VenuesController = require('./api/controllers/VenuesController.js')
 
 //Configuro los elementos estáticos
 app.use(express.static('public'));
@@ -62,4 +63,6 @@ app.post('/crearUsuario',LoginController.CrearUsuario);
 app.get('/logout',withAuth, LoginController.Logout);
 
 app.get('/pruebaLog',withAuth, LoginController.PruebaLog);
+
+app.get('/venues', VenuesController.GetVenues);
 

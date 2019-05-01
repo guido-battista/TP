@@ -7,9 +7,9 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
-import Login from '../containers/Login';
-import Signup from '../containers/Signup';
-import PruebaLog from '../containers/PruebaLog';
+import Login from '../containers/login/Login';
+import Signup from '../containers/login/Signup';
+import PruebaLog from '../containers/login/PruebaLog';
 
 import Principal from './Principal';
 

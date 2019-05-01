@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { loguearUsuario } from '../actions'
+import { loguearUsuario } from '../../actions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
